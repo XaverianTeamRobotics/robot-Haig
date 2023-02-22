@@ -136,6 +136,7 @@ def adjustWeights(styleR1: dict, styleR2: dict, styleB1: dict, styleB2: dict, po
     # Save the neural network
     saveNeuralNetwork(neuralNet)
 
+
 def createUntrainedNeuralNetwork():
     # Create a neural network with random weights
     # The neural network will have 1 input per play style question per team

@@ -97,6 +97,21 @@ def adjustWeights(styleR1: dict, styleR2: dict, styleB1: dict, styleB2: dict, po
     # We will keep doing this until we get our desired result
     # We will then save the neural network
 
+    desiredResult = ""
+
+    # If the strategy is good, we can just set the desired result to the strategy
+    if good:
+        desiredResult = strategy
+    # If the strategy is not good, we must ask the user what the desired strategy is
+    if not good:
+        # Print the list of strategies
+        print("Here is a list of strategies:")
+        for i in range(len(strategies)):
+            print(f"{i + 1}. {strategies[i]}")
+
+        # Ask the user what the desired strategy is
+        desiredResult = strategies[int(input("What is the desired strategy? ")) - 1]
+
     while True:
         # Adjust the weights for the input layer
         for i in range(4):
@@ -124,14 +139,10 @@ def adjustWeights(styleR1: dict, styleR2: dict, styleB1: dict, styleB2: dict, po
                         # If the strategy is bad, then we want to decrease the weight
                         neuralNet["weights"]["hidden"][i][j][question] -= neuralNet["input"][j][question] * 0.1
 
-        # Check if the new neural network is good
+        # Check if the new neural network is good. If it is, then we can stop; if not, then we must continue
         newStrategy = getStrategy(styleR1, styleR2, styleB1, styleB2, position)
-        if newStrategy == strategy and good:
-            # If the new strategy is the same as the old strategy and the old strategy was good, then we are done
+        if newStrategy == desiredResult:
             break
-        elif newStrategy == strategy and not good:
-            # If the new strategy is the same as the old strategy and the old strategy was bad, then we need to try again
-            continue
 
     # Save the neural network
     saveNeuralNetwork(neuralNet)

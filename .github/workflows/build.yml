@@ -9,7 +9,7 @@ jobs:
         matrix:
           os: [ubuntu-latest, macos-latest, windows-latest]
       concurrency:
-        group: build-team_scraper-${{ matrix.os }}
+        group: build-team_scraper-${{ matrix.os }}-${{ github.ref }}
         cancel-in-progress: true
       runs-on: ${{ matrix.os }}
       steps:

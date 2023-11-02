@@ -96,136 +96,48 @@ def analyze_matches(team_number):
     # Next, we need to find the total number of points
     total_points = 0
     for match in red_matches:
-        total_points += match[-1]
+        total_points += match[-5]
     for match in blue_matches:
-        total_points += match[24]
+        total_points += match[6]
 
-    # Now, we can find the average
-    average_points = total_points / total_matches
+    try:
+        # Now, we can find the average
+        average_points = total_points / total_matches
 
-    # Now, we need to find the average autonomous score
-    # We will do this by finding the average of the team's autonomous scores in each match
+        # Now, we need to find the average autonomous score
+        # We will do this by finding the average of the team's autonomous scores in each match
 
-    total_auto_points = 0
-    for match in red_matches:
-        total_auto_points += match[-12]
-    for match in blue_matches:
-        total_auto_points += match[13]
-    average_auto_points = total_auto_points / total_matches
+        total_auto_points = 0
+        for match in red_matches:
+            total_auto_points += match[-4]
+        for match in blue_matches:
+            total_auto_points += match[7]
+        average_auto_points = total_auto_points / total_matches
 
-    # Find the average teleop score
-    total_teleop_points = 0
-    for match in red_matches:
-        total_teleop_points += match[-6]
-    for match in blue_matches:
-        total_teleop_points += match[19]
-    average_teleop_points = total_teleop_points / total_matches
+        # Find the average teleop score
+        total_teleop_points = 0
+        for match in red_matches:
+            total_teleop_points += match[-3]
+        for match in blue_matches:
+            total_teleop_points += match[8]
+        average_teleop_points = total_teleop_points / total_matches
 
-    # Find the average endgame score
-    total_endgame_points = 0
-    for match in red_matches:
-        total_endgame_points += match[-2]
-    for match in blue_matches:
-        total_endgame_points += match[23]
-    average_endgame_points = total_endgame_points / total_matches
-
-    # Find the percentage of matches with beacons placed
-    total_beacons_placed = 0
-    for match in red_matches:
-        total_beacons_placed += match[-4]
-    for match in blue_matches:
-        total_beacons_placed += match[21]
-    percent_beacons_placed = total_beacons_placed / total_matches
-    percent_beacons_placed = round(percent_beacons_placed, 2) * 100
-
-    # Find the average number of junctions owned
-    total_junctions_owned = 0
-    for match in red_matches:
-        total_junctions_owned += match[-5]
-    for match in blue_matches:
-        total_junctions_owned += match[20]
-    average_junctions_owned = total_junctions_owned / total_matches
-
-    # Find the percentage breakdown of where cones are placed in both teleop and auto
-    # First, we need to find the terminal, ground, low, medium, and high goal cones placed in autonomous
-    total_terminal_cones_auto = 0
-    total_ground_cones_auto = 0
-    total_low_goal_cones_auto = 0
-    total_medium_goal_cones_auto = 0
-    total_high_goal_cones_auto = 0
-
-    for match in red_matches:
-        total_terminal_cones_auto += match[-18]
-        total_ground_cones_auto += match[-17]
-        total_low_goal_cones_auto += match[-16]
-        total_medium_goal_cones_auto += match[-15]
-        total_high_goal_cones_auto += match[-14]
-    for match in blue_matches:
-        total_terminal_cones_auto += match[7]
-        total_ground_cones_auto += match[8]
-        total_low_goal_cones_auto += match[9]
-        total_medium_goal_cones_auto += match[10]
-        total_high_goal_cones_auto += match[11]
-
-    # Now, we need to find the terminal, ground, low, medium, and high goal cones placed in teleop
-    total_terminal_cones_teleop = 0
-    total_ground_cones_teleop = 0
-    total_low_goal_cones_teleop = 0
-    total_medium_goal_cones_teleop = 0
-    total_high_goal_cones_teleop = 0
-
-    for match in red_matches:
-        total_terminal_cones_teleop += match[-11]
-        total_ground_cones_teleop += match[-10]
-        total_low_goal_cones_teleop += match[-9]
-        total_medium_goal_cones_teleop += match[-8]
-        total_high_goal_cones_teleop += match[-7]
-    for match in blue_matches:
-        total_terminal_cones_teleop += match[14]
-        total_ground_cones_teleop += match[15]
-        total_low_goal_cones_teleop += match[16]
-        total_medium_goal_cones_teleop += match[17]
-        total_high_goal_cones_teleop += match[18]
-
-    # Now add up all the cones placed in autonomous and teleop
-    total_cones_auto = total_terminal_cones_auto + total_ground_cones_auto + total_low_goal_cones_auto + \
-                       total_medium_goal_cones_auto + total_high_goal_cones_auto
-    total_cones_teleop = total_terminal_cones_teleop + total_ground_cones_teleop + total_low_goal_cones_teleop + \
-                         total_medium_goal_cones_teleop + total_high_goal_cones_teleop
-
-    # Now, we can find the percentage breakdown of where cones are placed in both teleop and auto
-    percent_terminal_cones_auto = round(total_terminal_cones_auto / total_cones_auto, 2) * 100
-    percent_ground_cones_auto = round(total_ground_cones_auto / total_cones_auto, 2) * 100
-    percent_low_goal_cones_auto = round(total_low_goal_cones_auto / total_cones_auto, 2) * 100
-    percent_medium_goal_cones_auto = round(total_medium_goal_cones_auto / total_cones_auto, 2) * 100
-    percent_high_goal_cones_auto = round(total_high_goal_cones_auto / total_cones_auto, 2) * 100
-
-    percent_terminal_cones_teleop = round(total_terminal_cones_teleop / total_cones_teleop, 2) * 100
-    percent_ground_cones_teleop = round(total_ground_cones_teleop / total_cones_teleop, 2) * 100
-    percent_low_goal_cones_teleop = round(total_low_goal_cones_teleop / total_cones_teleop, 2) * 100
-    percent_medium_goal_cones_teleop = round(total_medium_goal_cones_teleop / total_cones_teleop, 2) * 100
-    percent_high_goal_cones_teleop = round(total_high_goal_cones_teleop / total_cones_teleop, 2) * 100
+        # Find the average endgame score
+        total_endgame_points = 0
+        for match in red_matches:
+            total_endgame_points += match[-2]
+        for match in blue_matches:
+            total_endgame_points += match[9]
+        average_endgame_points = total_endgame_points / total_matches
+    except ZeroDivisionError:
+        print("The team has not played any matches")
+        input("Press enter to continue...")
+        return
 
     print("Average points: " + str(average_points))
     print("Average autonomous points: " + str(average_auto_points))
     print("Average teleop points: " + str(average_teleop_points))
     print("Average endgame points: " + str(average_endgame_points))
-    print("Percentage of rounds with a beacon placed: " + str(int(percent_beacons_placed)) + "%")
-    print("Average number of junctions owned: " + str(average_junctions_owned))
-
-    print("\nPercentage breakdown of cones placed in autonomous:")
-    print("     Percentage of cones placed in terminal goal in autonomous: " + str(int(percent_terminal_cones_auto)) + "%")
-    print("     Percentage of cones placed in ground goal in autonomous: " + str(int(percent_ground_cones_auto)) + "%")
-    print("     Percentage of cones placed in low goal in autonomous: " + str(int(percent_low_goal_cones_auto)) + "%")
-    print("     Percentage of cones placed in medium goal in autonomous: " + str(int(percent_medium_goal_cones_auto)) + "%")
-    print("     Percentage of cones placed in high goal in autonomous: " + str(int(percent_high_goal_cones_auto)) + "%")
-
-    print("\nPercentage breakdown of cones placed in teleop:")
-    print("     Percentage of cones placed in terminal goal in teleop: " + str(int(percent_terminal_cones_teleop)) + "%")
-    print("     Percentage of cones placed in ground goal in teleop: " + str(int(percent_ground_cones_teleop)) + "%")
-    print("     Percentage of cones placed in low goal in teleop: " + str(int(percent_low_goal_cones_teleop)) + "%")
-    print("     Percentage of cones placed in medium goal in teleop: " + str(int(percent_medium_goal_cones_teleop)) + "%")
-    print("     Percentage of cones placed in high goal in teleop: " + str(int(percent_high_goal_cones_teleop)) + "%")
 
     input("Press enter to continue...")
 
@@ -259,43 +171,12 @@ def createDB():
                     (team_number integer, team_name text, team_location text)''')
 
     # Finally, we will create the match table
-    # This will store the match number, the teams in the match, and the scores, as well as the following data for
-    # each team:
-    #    totalPoints
-    #    autoTerminalCones
-    #    autoGroundCones
-    #    autoLowCones
-    #    autoMediumCones
-    #    autoHighCones
-    #    autoNavigationPoints
-    #    autoPoints
-    #    dcTerminalCones
-    #    dcGroundCones
-    #    dcLowCones
-    #    dcMediumCones
-    #    dcHighCones
-    #    dcPoints
-    #    coneOwnedJunctions
-    #    beaconOwnedJunctions
-    #    endgameNavigationPoints
-    #    endgamePoints
-    #    totalPointsNp
     c.execute('''CREATE TABLE matches
                     (event_code text, match_number text, red_number_1 integer, red_number_2 integer, 
                     blue_number_1 integer, blue_number_2 integer,
-                    totalPoints_blue integer, autoTerminalCones_blue integer, autoGroundCones_blue integer,
-                    autoLowCones_blue integer, autoMediumCones_blue integer, autoHighCones_blue integer,
-                    autoNavigationPoints_blue integer, autoPoints_blue integer, dcTerminalCones_blue integer,
-                    dcGroundCones_blue integer, dcLowCones_blue integer, dcMediumCones_blue integer,
-                    dcHighCones_blue integer, dcPoints_blue integer, coneOwnedJunctions_blue integer,
-                    beaconOwnedJunctions_blue integer, endgameNavigationPoints_blue integer, endgamePoints_blue integer,
-                    totalPointsNp_blue integer, totalPoints_red integer, autoTerminalCones_red integer,
-                    autoGroundCones_red integer, autoLowCones_red integer, autoMediumCones_red integer,
-                    autoHighCones_red integer, autoNavigationPoints_red integer, autoPoints_red integer,
-                    dcTerminalCones_red integer, dcGroundCones_red integer, dcLowCones_red integer,
-                    dcMediumCones_red integer, dcHighCones_red integer, dcPoints_red integer,
-                    coneOwnedJunctions_red integer, beaconOwnedJunctions_red integer,
-                    endgameNavigationPoints_red integer, endgamePoints_red integer, totalPointsNp_red integer)''')
+                    totalPoints_blue integer, autoPoints_blue integer, dcPoints_blue integer, endgamePoints_blue integer,
+                    totalPointsNp_blue integer, totalPoints_red integer, autoPoints_red integer,
+                    dcPoints_red integer, endgamePoints_red integer, totalPointsNp_red integer)''')
 
     # Now, we need to get the data from the user and establish a database that will continue to grow
     # We will start with the team data
@@ -427,10 +308,10 @@ def add_events(team_number):
     query = gql.gql('''
         query {
             teamByNumber(number: ''' + team_number + ''') {
-                events(season: 2022) {
+                events(season: 2023) {
                     event{
                         name
-                        venue
+                        location { venue }
                         start
                         code
                     }
@@ -444,6 +325,12 @@ def add_events(team_number):
 
     # Now, we can get the events from the result
     events = result['teamByNumber']['events']
+
+    # If there are no events, we will return
+    if len(events) == 0:
+        conn.commit()
+        conn.close()
+        return
 
     # Now we can add them to the database
     for event in events:
@@ -513,7 +400,7 @@ def add_matches(team_number):
     query = gql.gql('''
         query {
             teamByNumber(number: ''' + team_number + ''') {
-                matches(season: 2022) {
+                matches(season: 2023) {
                     match {
                         matchNum
                             event {
@@ -524,47 +411,19 @@ def add_matches(team_number):
                             station
                         }
                         scores{
-                            ... on MatchScores2022 {
+                            ... on MatchScores2023 {
                               red {
                                 totalPoints
-                                autoTerminalCones
-                                autoGroundCones
-                                autoLowCones
-                                autoMediumCones
-                                autoHighCones
-                                autoNavigationPoints
                                 autoPoints
-                                dcTerminalCones
-                                dcGroundCones
-                                dcLowCones
-                                dcMediumCones
-                                dcHighCones
                                 dcPoints
-                                coneOwnedJunctions
-                                beaconOwnedJunctions
-                                endgameNavigationPoints
-                                endgamePoints
+                                egPoints
                                 totalPointsNp
                               }
                               blue {
                                 totalPoints
-                                autoTerminalCones
-                                autoGroundCones
-                                autoLowCones
-                                autoMediumCones
-                                autoHighCones
-                                autoNavigationPoints
                                 autoPoints
-                                dcTerminalCones
-                                dcGroundCones
-                                dcLowCones
-                                dcMediumCones
-                                dcHighCones
                                 dcPoints
-                                coneOwnedJunctions
-                                beaconOwnedJunctions
-                                endgameNavigationPoints
-                                endgamePoints
+                                egPoints
                                 totalPointsNp
                               }
                             }
@@ -587,44 +446,22 @@ def add_matches(team_number):
         c.execute('''INSERT INTO matches VALUES (
             ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?
         )''',
-                  (
-                      match['match']['event']['code'], match['match']['matchNum'],
-                      match['match']['teams'][0]['teamNumber'],
-                      match['match']['teams'][1]['teamNumber'], match['match']['teams'][2]['teamNumber'],
-                      match['match']['teams'][3]['teamNumber'], match['match']['scores']['red']['totalPoints'],
-                      match['match']['scores']['red']['autoTerminalCones'],
-                      match['match']['scores']['red']['autoGroundCones'],
-                      match['match']['scores']['red']['autoLowCones'],
-                      match['match']['scores']['red']['autoMediumCones'],
-                      match['match']['scores']['red']['autoHighCones'],
-                      match['match']['scores']['red']['autoNavigationPoints'],
-                      match['match']['scores']['red']['autoPoints'], match['match']['scores']['red']['dcTerminalCones'],
-                      match['match']['scores']['red']['dcGroundCones'], match['match']['scores']['red']['dcLowCones'],
-                      match['match']['scores']['red']['dcMediumCones'], match['match']['scores']['red']['dcHighCones'],
-                      match['match']['scores']['red']['dcPoints'],
-                      match['match']['scores']['red']['coneOwnedJunctions'],
-                      match['match']['scores']['red']['beaconOwnedJunctions'],
-                      match['match']['scores']['red']['endgameNavigationPoints'],
-                      match['match']['scores']['red']['endgamePoints'],
-                      match['match']['scores']['red']['totalPointsNp'],
-                      match['match']['scores']['blue']['totalPoints'],
-                      match['match']['scores']['blue']['autoTerminalCones'],
-                      match['match']['scores']['blue']['autoGroundCones'],
-                      match['match']['scores']['blue']['autoLowCones'],
-                      match['match']['scores']['blue']['autoMediumCones'],
-                      match['match']['scores']['blue']['autoHighCones'],
-                      match['match']['scores']['blue']['autoNavigationPoints'],
-                      match['match']['scores']['blue']['autoPoints'],
-                      match['match']['scores']['blue']['dcTerminalCones'],
-                      match['match']['scores']['blue']['dcGroundCones'], match['match']['scores']['blue']['dcLowCones'],
-                      match['match']['scores']['blue']['dcMediumCones'],
-                      match['match']['scores']['blue']['dcHighCones'],
-                      match['match']['scores']['blue']['dcPoints'],
-                      match['match']['scores']['blue']['coneOwnedJunctions'],
-                      match['match']['scores']['blue']['beaconOwnedJunctions'],
-                      match['match']['scores']['blue']['endgameNavigationPoints'],
-                      match['match']['scores']['blue']['endgamePoints'],
-                      match['match']['scores']['blue']['totalPointsNp'],
+            (
+                    match['match']['event']['code'], match['match']['matchNum'],
+                    match['match']['teams'][0]['teamNumber'],
+                    match['match']['teams'][1]['teamNumber'],
+                    match['match']['teams'][2]['teamNumber'],
+                    match['match']['teams'][3]['teamNumber'],
+                    match['match']['scores']['blue']['totalPoints'],
+                    match['match']['scores']['blue']['autoPoints'],
+                    match['match']['scores']['blue']['dcPoints'],
+                    match['match']['scores']['blue']['egPoints'],
+                    match['match']['scores']['blue']['totalPointsNp'],
+                    match['match']['scores']['red']['totalPoints'],
+                    match['match']['scores']['red']['autoPoints'],
+                    match['match']['scores']['red']['dcPoints'],
+                    match['match']['scores']['red']['egPoints'],
+                    match['match']['scores']['red']['totalPointsNp'],
                   ))
 
     # Now, we can commit the changes

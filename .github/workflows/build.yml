@@ -1,7 +1,7 @@
 name: Build binaries for team_scraper.py
 on:
   release:
-    types: [created, edited]
+    types: [created, edited, published, prereleased, released]
 
 jobs:
     build:
